@@ -8,8 +8,8 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {/* <CurrentWeather /> */}
-      {/* <UpcomingWeather /> */}
+      {/* <CurrentWeather />
+      <UpcomingWeather /> */}
       <City/>
     </View>
   );
