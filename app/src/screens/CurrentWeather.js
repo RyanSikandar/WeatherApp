@@ -2,13 +2,13 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 
-const CurrentWeather=() =>{
+const CurrentWeather = () => {
   const message = "Current Weather"
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
-        <Feather name="sun" size={100} color="black" />
+        <Feather name="sun" size={100} color="white" />
 
         <Text style={styles.temp}>6</Text>
         <Text style={styles.feels}>Feels like: 5</Text>
@@ -29,25 +29,25 @@ const CurrentWeather=() =>{
 
 const styles = StyleSheet.create({
   container: {
-   justifyContent: 'center',
+    justifyContent: 'center',
     flex: 1,
     alignItems: 'center',
   },
   wrapper: {
-    backgroundColor: 'pink',
+    backgroundColor: 'gray',
     flex: 1
   },
   temp: {
-    color: "black",
+    color: "white",
     fontSize: 48
   },
   feels: {
     fontSize: 30,
-    color: "black"
+    color: "white"
   },
   highLow: {
     fontSize: 20,
-    color: "black"
+    color: "white"
   },
   highLowWrapper: {
     flexDirection: "row",
@@ -55,15 +55,18 @@ const styles = StyleSheet.create({
   bodyWrapper: {
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    paddingLeft:25,
-    marginBottom:40
+    paddingLeft: 25,
+    marginBottom: 40
 
   },
-  description:{
-    fontSize:48,
+  description: {
+    fontSize: 48,
+
+    color: "white"
   },
-  message:{
-    fontSize:30
+  message: {
+    fontSize: 30,
+    color: "white"
   }
 })
 
