@@ -1,30 +1,42 @@
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
-
+import { weatherType } from '../../utils/weatherType';
+import RowText from '../components/RowText';
 const CurrentWeather = () => {
-  const message = "Current Weather"
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <SafeAreaView
+      style={[
+        styles.wrapper,
+        { backgroundColor: weatherType['Clouds']?.backgroundColor }
+      ]}
+    >
       <View style={styles.container}>
-        <Feather name="sun" size={100} color="white" />
-
-        <Text style={styles.temp}>6</Text>
-        <Text style={styles.feels}>Feels like: 5</Text>
-        <View style={styles.highLowWrapper}>
-          <Text style={styles.feels}>High: 8</Text>
-          <Text style={styles.feels}> Low: 6</Text>
-        </View>
+        <Feather
+          name={weatherType['Clouds']?.icon}
+          size={100}
+          color="white"
+        />
+        <Text style={styles.temp}>{`48°`}</Text>
+        <Text style={styles.feels}>{`Feels like: 50°`}</Text>
+        <RowText
+          messageOne={`High: 60° `}
+          messageTwo={`Low: 10°`}
+          containerStyles={styles.highLowWrapper}
+          messageOneStyles={styles.highLow}
+          messageTwoStyles={styles.highLow}
+        />
       </View>
-      <View style={styles.bodyWrapper}>
-        <Text style={styles.description}>It's sunny</Text>
-        <Text style={styles.message}>Its perfect Shalwaar kameez weather</Text>
-      </View>
-
+      <RowText
+        messageOne={weatherType['Clouds']?.title}
+        messageTwo={weatherType['Clouds']?.message}
+        containerStyles={styles.bodyWrapper}
+        messageOneStyles={styles.description}
+        messageTwoStyles={styles.message}
+      />
     </SafeAreaView>
-
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -56,17 +68,24 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-start",
     paddingLeft: 25,
-    marginBottom: 40
+    marginBottom: 40,
+
+
 
   },
   description: {
     fontSize: 48,
-
+    fontWeight: "bold",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
     color: "white"
   },
   message: {
     fontSize: 30,
-    color: "white"
+    color: "white",
+    textAlign: "center",
+    alignItems: "center"
   }
 })
 
