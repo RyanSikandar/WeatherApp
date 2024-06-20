@@ -1,12 +1,11 @@
 import { WEATHER_KEY } from '@env';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 
 export const useGetWeather = () => {
     const [loading, setLoading] = useState(true);
     const [location, setLocation] = useState(null);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState(null);
     const [weather, setWeather] = useState([]);
     const API_KEY = WEATHER_KEY;
 
@@ -18,8 +17,8 @@ export const useGetWeather = () => {
                 const data = await response.json();
                 setWeather(data);
             } catch (error) {
-
                 console.error(error);
+                setErrorMsg('Failed to fetch weather data');
             } finally {
                 setLoading(false);
             }
@@ -35,8 +34,14 @@ export const useGetWeather = () => {
                 return;
             }
 
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
+            try {
+                let location = await Location.getCurrentPositionAsync({});
+                setLocation(location);
+            } catch (error) {
+                console.error(error);
+                setErrorMsg('Failed to fetch location');
+                setLoading(false);
+            }
         };
 
         fetchLocation();
@@ -48,5 +53,5 @@ export const useGetWeather = () => {
         }
     }, [location]);
 
-    return { loading, weather, location, errorMsg };
+    return [loading, weather, errorMsg];
 }

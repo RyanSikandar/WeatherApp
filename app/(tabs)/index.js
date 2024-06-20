@@ -1,32 +1,42 @@
+import React from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Tabs from '../src/components/Tabs';
-import * as Location from 'expo-location';
-
-import {useGetWeather} from '../hooks/useGetWeather';
+import ErrorItem from '../src/components/ErrorItem';
+import { useGetWeather } from '../hooks/useGetWeather';
+import TenorGIFs from '../src/screens/Tenor';
+import MySearchBar from '../src/components/SearchBar';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const { loading, weather, location, errorMsg } = useGetWeather();
-  console.log(loading,errorMsg,weather);
+  const [loading, weather, errorMsg] = useGetWeather();
 
-  if(weather && weather.list)
-    {
-      return (
-        <NavigationContainer independent>
-          <Tabs weather={weather}/>
-        </NavigationContainer>
-      );
-    }
- 
+  if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="white" />
+        {errorMsg ? (<ErrorItem message={errorMsg} />) : (
+          <ActivityIndicator size="large" color="white" />
+        )}
       </View>
     );
   }
+
+  if (errorMsg) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ErrorItem />
+      </View>
+    );
+  }
+
+  return (
+    <NavigationContainer independent>
+      <Tabs weather={weather} />
+    </NavigationContainer>
+  );
+ 
+}
 
 const styles = StyleSheet.create({
   loadingContainer: {

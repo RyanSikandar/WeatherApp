@@ -1,23 +1,30 @@
 import React from 'react';
 import { StatusBar, View, Text, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import moment from 'moment';
 
-const City = () => {
+const City = ({ weatherData }) => {
+    const { name, country, population, sunrise, sunset } = weatherData;
+    
+    // Convert Unix timestamps from seconds to milliseconds
+    const formattedSunrise = moment(sunrise * 1000).format('h:mm a');
+    const formattedSunset = moment(sunset * 1000).format('h:mm a');
+    
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground source={require('../../../assets/city-background.jpg')} style={styles.imageLayout}>
 
-                <Text style={[styles.cityName, styles.cityText]}>London</Text>
-                <Text style={[styles.countryName, styles.cityText]}>UK</Text>
+                <Text style={[styles.cityName, styles.cityText]}>{name}</Text>
+                <Text style={[styles.countryName, styles.cityText]}>{country}</Text>
                 <View style={styles.populationWrapper}>
                     <Feather size={50} color={"black"} name={'user'} />
-                    <Text style={styles.populationText}>8 Million</Text>
+                    <Text style={styles.populationText}>{`Population: ${population}`}</Text>
                 </View>
                 <View style={styles.riseSetWrapper}>
                     <Feather name='sunrise' color="white" size={50} />
-                    <Text style={styles.riseSetText}>10:56:10 am</Text>
+                    <Text style={styles.riseSetText}>{formattedSunrise}</Text>
                     <Feather name='sunset' color='white' size={50} />
-                    <Text style={styles.riseSetText}>10:10:010 pm</Text>
+                    <Text style={styles.riseSetText}>{formattedSunset}</Text>
                 </View>
 
             </ImageBackground>
@@ -35,14 +42,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     cityName: {
-
         fontSize: 40,
-
     },
     countryName: {
-
         fontSize: 30,
-
     },
     cityText: {
         justifyContent: 'center',
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
     }
-
 });
 
 export default City;

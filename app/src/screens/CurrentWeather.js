@@ -3,8 +3,8 @@ import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { weatherType } from '../../utils/weatherType';
 import RowText from '../components/RowText';
+import TenorGIFs from './Tenor';
 const CurrentWeather = ({ weatherData }) => {
-  console.log(weatherData);
   const { main: { temp, feels_like, temp_max, temp_min }, weather } = weatherData;
   const weatherConditions = weather[0].main;
   return (
@@ -22,6 +22,7 @@ const CurrentWeather = ({ weatherData }) => {
         />
         <Text style={styles.tempStyles}>{`${temp}°`}</Text>
         <Text style={styles.feels}>{`Feels like: ${feels_like}°`}</Text>
+
         <RowText
           messageOne={`High: ${temp_max}° `}
           messageTwo={`Low: ${temp_min}°`}
@@ -29,6 +30,7 @@ const CurrentWeather = ({ weatherData }) => {
           messageOneStyles={styles.highLow}
           messageTwoStyles={styles.highLow}
         />
+       
       </View>
       <RowText
         messageOne={weather[0]?.description}
@@ -76,19 +78,21 @@ const styles = StyleSheet.create({
 
   },
   description: {
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: "bold",
     color: "white",
     alignItems: "center",
     justifyContent: "center",
-    color: "white"
+    color: "white",
+  
   },
   message: {
-    fontSize: 30,
+    fontSize: 28,
     color: "white",
     textAlign: "center",
     alignItems: "center"
-  }
+  },
+
 })
 
 export default CurrentWeather;
