@@ -1,6 +1,6 @@
 {
   "name": "weatherapp",
-  "main": "expo-router/entry",
+  "main": "app/(tabs)/index.js",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
@@ -57,7 +57,8 @@
     "jest-expo": "~51.0.1",
     "prettier": "3.3.2",
     "react-test-renderer": "18.2.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "expo-cli": "~51.0.14"
   },
   "private": true
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { TENOR_API_KEY } from '@env';
+import ShareExample from '../components/Share';  // Adjust the import path as necessary
 
 const TenorGIFs = (props) => {
     const { term } = props;
@@ -37,6 +38,7 @@ const TenorGIFs = (props) => {
             fetchGIFs(term, next);
         }
     };
+    console.log(gifs);
 
     return (
         <FlatList
@@ -49,10 +51,16 @@ const TenorGIFs = (props) => {
                 justifyContent: "space-between",
             }}
             renderItem={({ item }) => (
-                <Image
-                    source={{ uri: item.media_formats.gif.url }}
-                    style={styles.gif}
-                />
+                <View style={styles.gifContainer}>
+                    <Image
+                        source={{ uri: item.media_formats.gif.url }}
+                        style={styles.gif}
+                    />
+                    <ShareExample
+                        url={item.media_formats.gif.url}
+                        title={item.content_description}
+                    />
+                </View>
             )}
             ListFooterComponent={loading && <ActivityIndicator size="large" color="black" animating={loading} />}
         />
@@ -65,10 +73,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
     },
+    gifContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+        width: 100,
+    },
     gif: {
         width: 100,
         height: 100,
-        marginTop: 20,
     },
 });
 
