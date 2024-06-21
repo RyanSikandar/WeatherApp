@@ -36,6 +36,7 @@ const App = () => {
     </NavigationContainer>
   );
 
+
 }
 
 const styles = StyleSheet.create({

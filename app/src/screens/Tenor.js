@@ -3,7 +3,8 @@ import { View, FlatList, Image, StyleSheet, ActivityIndicator } from 'react-nati
 import axios from 'axios';
 import { TENOR_API_KEY } from '@env';
 import ShareExample from '../components/Share';  // Adjust the import path as necessary
-
+import { MotiView } from 'moti'
+import { Skeleton } from 'moti/skeleton'
 const TenorGIFs = (props) => {
     const { term } = props;
     const [gifs, setGifs] = useState([]);
@@ -51,16 +52,30 @@ const TenorGIFs = (props) => {
                 justifyContent: "space-between",
             }}
             renderItem={({ item }) => (
+
+
+
                 <View style={styles.gifContainer}>
-                    <Image
-                        source={{ uri: item.media_formats.gif.url }}
-                        style={styles.gif}
-                    />
+                    <Skeleton
+                        show = {loading}
+                        colorMode='light'
+                        radius={'square'}
+                        height={100}
+                        width={100}
+                        backgroundColor='#D4D4D4'
+                        style={{ borderRadius: 10 }}
+                        transition={{ type: 'timing', duration: 1000 }}
+                    >
+                        <Image
+                            source={{ uri: item.media_formats.gif.url }}
+                            style={styles.gif}
+                        /></Skeleton>
                     <ShareExample
                         url={item.media_formats.gif.url}
                         title={item.content_description}
                     />
                 </View>
+
             )}
             ListFooterComponent={loading && <ActivityIndicator size="large" color="black" animating={loading} />}
         />
